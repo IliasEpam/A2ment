@@ -1,33 +1,10 @@
-/*
- * Angular 2 decorators and services
- */
-import {
-	Component,
-	OnInit,
-	ViewEncapsulation
-} from '@angular/core';
-import { AppState } from './app.service';
+import { Component } from '@angular/core';
 
-/*
- * App Component
- * Top Level Component
- */
 @Component({
-	selector: 'app',
-	encapsulation: ViewEncapsulation.None,
-	styles: [
-		require('./styles/vendors.scss'),
-		require('./styles/index.scss'),
-		require('./app.styles.scss')
-	],
-	template: require('./app.template.html')
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-
-	constructor() {
-	}
-
-	public ngOnInit() {
-	}
-
+export class AppComponent {
+  title = 'app';
 }
