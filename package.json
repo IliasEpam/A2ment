@@ -5,7 +5,9 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 8080",
     "test": "karma start",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
+    "lint": "npm run tslint \"src/**/*.ts\"",
+    "tslint": "tslint"
   },
   "main": "main.ts",
   "repository": {
@@ -56,6 +58,8 @@
     "sass-loader": "6.0.5",
     "style-loader": "0.18.2",
     "to-string-loader": "1.1.5",
+    "codelyzer": "~2.1.1",
+    "tslint": "~4.5.1",
     "typescript": "2.3.4",
     "webpack": "2.6.1",
     "webpack-dev-server": "2.4.5",
