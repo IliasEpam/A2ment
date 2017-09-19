@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 
-import '../../../scss/styles.scss';
-
 @Component({
-  selector: 'spb',
+  selector: 'ment',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

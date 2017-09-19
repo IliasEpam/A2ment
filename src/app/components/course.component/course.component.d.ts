@@ -1,5 +1,5 @@
-interface ICourse {
-    courseId: string;
+export interface ICourse {
+    id: string;
     description: string;
     duration: string;
     date: string;
