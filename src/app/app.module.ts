@@ -9,10 +9,13 @@ import { LoginComponent } from './common/login.component';
 import { FooterComponent } from './common/footer.component';
 import { CoursesComponent } from './components/courses.component';
 import { CourseComponent } from './components/course.component';
+import { ToolboxComponent } from './components/toolbox.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
@@ -22,7 +25,8 @@ import { CourseComponent } from './components/course.component';
     LoginComponent,
     FooterComponent,
     CoursesComponent,
-    CourseComponent
+    CourseComponent,
+    ToolboxComponent
   ],
   bootstrap: [ AppComponent ]
 })

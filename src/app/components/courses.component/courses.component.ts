@@ -23,4 +23,8 @@ export class CoursesComponent {
       description: 'be bebeb ebebe be  be bebebe be be'
     }
   ]
+
+  onDeleteCourse(id: string): void {
+    console.log(id);
+  }
 }
