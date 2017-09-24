@@ -1,5 +1,5 @@
 import { Component, Input,Output, EventEmitter  } from '@angular/core';
-import { ICourse } from './course.component.d';
+import { ICourse } from '../../typings/course.component.d';
 
 @Component({
   selector: 'ment-course',
@@ -12,7 +12,7 @@ export class CourseComponent {
   @Output() deleteCourse: EventEmitter<string> = new EventEmitter<string>();
   contructor () {
   }
-  onDeleteCourse() {
+  onDeleteCourse(): void {
     this.deleteCourse.emit(this.courseItem.id);
   }
 }

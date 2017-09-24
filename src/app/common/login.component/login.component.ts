@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'ment-login',
@@ -7,5 +8,16 @@ import { Component } from '@angular/core';
 })
 
 export class LoginComponent {
-  public userName: string = 'Some User';
+  public username: string;
+
+  constructor(private authService: AuthService) {
+  }
+
+  ngOnInit() {
+     this.username = this.authService.getUserInfo().login;
+  }
+
+  logof():void {
+    this.authService.logout();
+  }
  }
