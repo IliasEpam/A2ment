@@ -8,6 +8,11 @@
   height: 100px;
   text-align: left;
   width: 70%;
+  background-color: white;
+
+  &--favorite {
+    background-color: lightcoral;
+  }
 
   &__info {
     width: 80%;
@@ -20,6 +25,7 @@
   &__title {
     display: inline-block;
     margin-right: 50px;
+    width: 150px;
   }
 
   &__duration {
@@ -41,5 +47,15 @@
     width: 80%;
     text-align: center;
     margin-bottom: 10px;
+  }
+
+  &__star {
+    background: url(http://pngimages.net/sites/default/files/star-png-image-2768.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
   }
 }

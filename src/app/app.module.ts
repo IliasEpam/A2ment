@@ -15,6 +15,10 @@ import { ToolboxComponent } from './components/toolbox.component';
 import { CoursesService } from './services/courses.service';
 import { AuthService } from './services/auth.service';
 
+import { BorderDirective } from './directives/border.directive';
+import { FormatTimePipe } from './pipes/time.pipe';
+import { OrderByPipe } from './pipes/orderby.pipe';
+
 
 @NgModule({
   imports: [
@@ -27,6 +31,9 @@ import { AuthService } from './services/auth.service';
   ],
   declarations: [
     AppComponent,
+    BorderDirective,
+    FormatTimePipe,
+    OrderByPipe,
     HeaderComponent,
     LogoComponent,
     BreadcrumbsComponent,
@@ -35,7 +42,7 @@ import { AuthService } from './services/auth.service';
     CoursesComponent,
     CourseComponent,
     LoginPageComponent,
-    ToolboxComponent
+    ToolboxComponent 
   ],
   bootstrap: [ AppComponent ]
 })

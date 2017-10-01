@@ -1,14 +1,16 @@
-<div class="course">
+<div class="course" [courseBorder]="courseItem.date" [ngClass]="{'course--favorite': courseItem.isFavorite}">
     <div class="course__info">
         <div class="course__data">
             <div class="course__title">
-                {{courseItem.title}}
+                {{courseItem.title | uppercase}}
+                <div *ngIf="courseItem.isFavorite" class="course__star">
+                </div>
             </div>
             <div class="course__duration">
-                {{courseItem.duration}}
+                {{courseItem.duration | formatTime}}
             </div>
             <div class="course__date">
-                {{courseItem.date}}
+                {{courseItem.date | date}}
             </div>
         </div>
         <div class="course__description">

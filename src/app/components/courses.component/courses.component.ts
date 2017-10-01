@@ -10,6 +10,11 @@ import { ICourse } from '../../typings/course.component.d';
 
 export class CoursesComponent implements OnInit { 
   public courses: Array<ICourse>;
+  public sortConfig: string = 'az';
+  public sortOptions: any[] = [
+    {name: 'Sort by date ↑', value: 'az'},
+    {name: 'Sort by date ↓', value: 'za'}
+  ];
 
   constructor(private coursesService: CoursesService) {
 
@@ -24,5 +29,13 @@ export class CoursesComponent implements OnInit {
     if (confirmation) {
       this.coursesService.deleteCourse(id);
     }
+  }
+
+  isNoCourses(): boolean {
+    return !this.courses || !this.courses.length;
+  }
+
+  public onSortingOption(e: any): void{
+    this.sortConfig = e.target.value;
   }
 }

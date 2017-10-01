@@ -4,6 +4,7 @@ export interface ICourse {
     description: string;
     duration: string;
     date: string;
+    isFavorite: boolean;
 }
 
 export interface ICourseComponent {  
