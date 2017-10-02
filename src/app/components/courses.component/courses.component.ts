@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
+import { SearchPipe } from '../../pipes/search.pipe';
 import { ICourse } from '../../typings/course.component.d';
 
 @Component({
@@ -10,18 +11,23 @@ import { ICourse } from '../../typings/course.component.d';
 
 export class CoursesComponent implements OnInit { 
   public courses: Array<ICourse>;
+  public allCourses: Array<ICourse>
   public sortConfig: string = 'az';
   public sortOptions: any[] = [
     {name: 'Sort by date ↑', value: 'az'},
     {name: 'Sort by date ↓', value: 'za'}
   ];
-
-  constructor(private coursesService: CoursesService) {
-
-  }
+  @Input() searchParam: string;
+  constructor(private coursesService: CoursesService, private searchPipe: SearchPipe) { }
 
   ngOnInit() {
-    this.courses = this.coursesService.getCourses();
+    this.allCourses = this.coursesService.getCourses();
+    console.log(this.searchParam);
+    this.courses = this.searchPipe.transform(this.allCourses, this.searchParam);
+  }
+
+  ngOnChanges() {
+    this.courses = this.searchPipe.transform(this.allCourses, this.searchParam);
   }
 
   onDeleteCourse(id: string): void {

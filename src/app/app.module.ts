@@ -18,6 +18,7 @@ import { AuthService } from './services/auth.service';
 import { BorderDirective } from './directives/border.directive';
 import { FormatTimePipe } from './pipes/time.pipe';
 import { OrderByPipe } from './pipes/orderby.pipe';
+import { SearchPipe } from './pipes/search.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { OrderByPipe } from './pipes/orderby.pipe';
   ],
   providers: [
     CoursesService,
-    AuthService
+    AuthService,
+    SearchPipe
   ],
   declarations: [
     AppComponent,

@@ -6,12 +6,16 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent { 
+export class AppComponent {
+  public searchParam: string;
   constructor(private authService: AuthService) {
-
   }
 
   isAuthVisible(): boolean {
     return this.authService.isVisible();
+  }
+
+  onSearch(param: string): void {
+    this.searchParam = param;
   }
 }

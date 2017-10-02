@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ment-toolbox',
@@ -7,8 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class ToolboxComponent {
+  @Output() broadcastSearch: EventEmitter<string> = new EventEmitter<string>();
   public search: string = '';
-  public startSearch(): void{
-    console.log(this.search);
+  public startSearch(): void {
+    this.broadcastSearch.emit(this.search);
   }
 }
