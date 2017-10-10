@@ -2,5 +2,6 @@
 <ment-loginpage *ngIf="isAuthVisible"></ment-loginpage>
 <ment-toolbox (broadcastSearch)='onSearch($event)' *ngIf="!isAuthVisible"></ment-toolbox>
 <ment-courses [searchParam]="searchParam" *ngIf="!isAuthVisible"></ment-courses>
+<ment-addcourse></ment-addcourse>
 <ment-spinner></ment-spinner>
 <ment-footer></ment-footer>
