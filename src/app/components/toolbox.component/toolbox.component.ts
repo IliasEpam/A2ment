@@ -1,8 +1,9 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter,ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'ment-toolbox',
   templateUrl: './toolbox.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./toolbox.component.scss']
 })
 

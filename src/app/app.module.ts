@@ -12,8 +12,11 @@ import { FooterComponent } from './common/footer.component';
 import { CoursesComponent } from './components/courses.component';
 import { CourseComponent } from './components/course.component';
 import { ToolboxComponent } from './components/toolbox.component';
+import { SpinnerComponent } from './common/spinner.component';
+import { AddCourseComponent } from './components/addcourse.component';
 import { CoursesService } from './services/courses.service';
 import { AuthService } from './services/auth.service';
+import { SpinnerService } from './services/spinner.service';
 
 import { BorderDirective } from './directives/border.directive';
 import { FormatTimePipe } from './pipes/time.pipe';
@@ -29,7 +32,8 @@ import { SearchPipe } from './pipes/search.pipe';
   providers: [
     CoursesService,
     AuthService,
-    SearchPipe
+    SearchPipe,
+    SpinnerService
   ],
   declarations: [
     AppComponent,
@@ -44,7 +48,9 @@ import { SearchPipe } from './pipes/search.pipe';
     CoursesComponent,
     CourseComponent,
     LoginPageComponent,
-    ToolboxComponent 
+    ToolboxComponent,
+    SpinnerComponent,
+    AddCourseComponent
   ],
   bootstrap: [ AppComponent ]
 })

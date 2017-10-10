@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ICourse } from '../typings/course.component.d';
+import { Observable, Observer } from 'rxjs';
+import { SpinnerService } from './spinner.service';
 
 @Injectable()
 export class CoursesService {
@@ -30,8 +32,13 @@ public courses: Array<ICourse> = [
     }
   ];
 
-    getCourses(): Array<ICourse> {
-        return this.courses;
+  constructor(private spinnerService: SpinnerService){}
+
+    getCourses(): ICourse[] {
+        return Observable.create((observer: Observer<any>) => {
+            observer.next(this.courses);
+            })
+        .delay(2000);
     }
 
     getCourseById(courseId: string): ICourse {

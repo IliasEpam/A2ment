@@ -1,17 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
 import { SearchPipe } from '../../pipes/search.pipe';
 import { ICourse } from '../../typings/course.component.d';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ment-courses',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
 
-export class CoursesComponent implements OnInit { 
-  public courses: Array<ICourse>;
-  public allCourses: Array<ICourse>
+export class CoursesComponent implements OnInit {
+  public allCoursesSub: Subscription;
+  public courses: ICourse[];
+  public allCourses: ICourse[];
   public sortConfig: string = 'az';
   public sortOptions: any[] = [
     {name: 'Sort by date ↑', value: 'az'},
@@ -22,7 +25,6 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     this.allCourses = this.coursesService.getCourses();
-    console.log(this.searchParam);
     this.courses = this.searchPipe.transform(this.allCourses, this.searchParam);
   }
 
