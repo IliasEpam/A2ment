@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
 import { SearchPipe } from '../../pipes/search.pipe';
 import { ICourse } from '../../typings/course.component.d';
@@ -14,22 +14,31 @@ import { Observable, Subscription } from 'rxjs';
 export class CoursesComponent implements OnInit {
   public allCoursesSub: Subscription;
   public courses: ICourse[];
-  public allCourses: ICourse[];
+  public allCourses: Observable<ICourse[]>;
+  public allCourses$: ICourse[];
   public sortConfig: string = 'az';
   public sortOptions: any[] = [
     {name: 'Sort by date ↑', value: 'az'},
     {name: 'Sort by date ↓', value: 'za'}
   ];
   @Input() searchParam: string;
-  constructor(private coursesService: CoursesService, private searchPipe: SearchPipe) { }
+  constructor(private coursesService: CoursesService, private searchPipe: SearchPipe, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.allCourses = this.coursesService.getCourses();
-    this.courses = this.searchPipe.transform(this.allCourses, this.searchParam);
+    let sub = this.allCourses.subscribe(
+      (data) => {
+        this.allCourses$ = data;
+        this.courses = this.searchPipe.transform(this.allCourses$, this.searchParam);
+        this.ref.markForCheck();
+      }
+    );
+    
   }
 
   ngOnChanges() {
-    this.courses = this.searchPipe.transform(this.allCourses, this.searchParam);
+    console.log('changed');
+    this.courses = this.searchPipe.transform(this.allCourses$, this.searchParam);
   }
 
   onDeleteCourse(id: string): void {

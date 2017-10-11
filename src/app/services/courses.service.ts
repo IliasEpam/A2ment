@@ -34,7 +34,7 @@ public courses: Array<ICourse> = [
 
   constructor(private spinnerService: SpinnerService){}
 
-    getCourses(): ICourse[] {
+    getCourses(): Observable<ICourse[]> {
         return Observable.create((observer: Observer<any>) => {
             observer.next(this.courses);
             })
