@@ -3,6 +3,7 @@ import { CoursesService } from '../../services/courses.service';
 import { SearchPipe } from '../../pipes/search.pipe';
 import { ICourse } from '../../typings/course.component.d';
 import { Observable, Subscription } from 'rxjs';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'ment-courses',
@@ -22,18 +23,27 @@ export class CoursesComponent implements OnInit {
     {name: 'Sort by date ↓', value: 'za'}
   ];
   @Input() searchParam: string;
-  constructor(private coursesService: CoursesService, private searchPipe: SearchPipe, private ref: ChangeDetectorRef) { }
+  constructor(
+    private coursesService: CoursesService, 
+    private searchPipe: SearchPipe, 
+    private ref: ChangeDetectorRef,
+    private spinnerService: SpinnerService) { }
 
   ngOnInit() {
+    this.updateCourses();
+  };
+
+  updateCourses() {
+    this.spinnerService.showSpinner();
     this.allCourses = this.coursesService.getCourses();
     let sub = this.allCourses.subscribe(
       (data) => {
         this.allCourses$ = data;
         this.courses = this.searchPipe.transform(this.allCourses$, this.searchParam);
         this.ref.markForCheck();
+        this.spinnerService.hideSpinner();
       }
     );
-    
   }
 
   ngOnChanges() {
@@ -45,6 +55,8 @@ export class CoursesComponent implements OnInit {
     let confirmation = confirm('Do you really want to delete this course?');
     if (confirmation) {
       this.coursesService.deleteCourse(id);
+
+      this.updateCourses();
     }
   }
 

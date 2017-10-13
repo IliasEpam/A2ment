@@ -16,21 +16,20 @@ export class HeaderComponent {
   public isLoggedIn: boolean;
 
   constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
-    this.authForm = authService.authFormStream$.subscribe(
+  }
+
+  ngOnInit() {
+    this.authForm = this.authService.authFormStream$.subscribe(
       isAuthVisible => {
         this.isAuthVisible = isAuthVisible;
         this.ref.markForCheck();
       });
     
-    this.isLoggedInS = authService.isAuthStream$.subscribe(
+    this.isLoggedInS = this.authService.isAuthStream$.subscribe(
       isLoggedIn => {
         this.isLoggedIn = isLoggedIn;
         this.ref.markForCheck();
       });
-  }
-
-  ngOnInit() {
-    //this.authService.isUserAuthInitial();
   }
 
   toggleAuth(): void{
