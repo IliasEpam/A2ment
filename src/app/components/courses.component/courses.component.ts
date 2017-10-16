@@ -33,9 +33,13 @@ export class CoursesComponent implements OnInit {
     this.updateCourses();
   };
 
-  updateCourses() {
+  updateCourses(update?: boolean) {
     this.spinnerService.showSpinner();
-    this.allCourses = this.coursesService.getCourses();
+    if (update) {
+      this.allCourses = this.coursesService.getCourses(update);
+    } else {
+      this.allCourses = this.coursesService.getCourses();
+    }
     let sub = this.allCourses.subscribe(
       (data) => {
         this.allCourses$ = data;
@@ -47,17 +51,28 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log('changed');
     this.courses = this.searchPipe.transform(this.allCourses$, this.searchParam);
   }
 
   onDeleteCourse(id: string): void {
     let confirmation = confirm('Do you really want to delete this course?');
     if (confirmation) {
-      this.coursesService.deleteCourse(id);
-
-      this.updateCourses();
+      let sub = this.coursesService.deleteCourse(id).
+      subscribe(() => {
+        this.updateCourses(true);
+      });
     }
+  }
+
+  getMoreCourses(): void {
+    this.spinnerService.showSpinner();
+    this.coursesService.getMoreCourses()
+    .subscribe((res)=>{
+      this.allCourses$ = this.allCourses$.concat(res);
+      this.courses = this.searchPipe.transform(this.allCourses$, this.searchParam);
+      this.ref.markForCheck();
+      this.spinnerService.hideSpinner();
+    });
   }
 
   isNoCourses(): boolean {

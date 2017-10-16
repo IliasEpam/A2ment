@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { SpinnerService } from './spinner.service';
+import { Http, Response, Request, RequestOptions, Headers, RequestMethod, URLSearchParams} from '@angular/http';
 
 @Injectable()
 export class AuthService {
@@ -17,8 +18,10 @@ export class AuthService {
     private isUserAuth: boolean;
     public userInfoStream = new Subject<any>();
     public userInfoStream$ = this.userInfoStream.asObservable();
+    private userInfo: any;
+    private baseUrl = "http://localhost:3000";
 
-    constructor(private spinnerService: SpinnerService) {
+    constructor(private spinnerService: SpinnerService, private http: Http) {
 
     }
 
@@ -32,30 +35,64 @@ export class AuthService {
         this.isAuthStream.next(this.isUserAuth);
     }
 
-    login(data: any): void {
-        localStorage.setItem(this.storageKey, JSON.stringify(data));
-        this.isUserAuth = true;
+    login(data: any): any {
         this.spinnerService.showSpinner();
-        setTimeout(() => {
-            this.isAuthStream.next(this.isUserAuth);
-            this.userInfoStream.next(data.login);
-            this.toggleAuthForm();
-            this.spinnerService.hideSpinner();
-        }, 2000);
+        let body = {"login": data.login};
+        let url: string = this.baseUrl + '/login';
+        this.loginOnServer(url, body)
+        .subscribe((res) => {
+            setTimeout(() => {
+                this.afterLogin(body);
+            }, 1000);
+        });
+    }
+
+    afterLogin(body: any): void {
+        this.isUserAuth = true;
+        this.isAuthStream.next(this.isUserAuth);
+        this.setUserInfo(body);
+        this.getUserInfo()
+        this.toggleAuthForm();
+        this.spinnerService.hideSpinner();
+    }
+
+    loginOnServer(url: string, body: any): Observable<any> {
+        return this.http.post(url, body);
     }
 
     logout(): void {
-        localStorage.removeItem(this.storageKey);
+        this.spinnerService.showSpinner();
+        let url: string = this.baseUrl + '/login';
+        this.logoutOnServer(url)
+        .subscribe((res) => {
+            setTimeout(() => {
+                this.afterLogout();
+            }, 1000);
+        });
+        
+    }
+    
+    afterLogout(): void{
         this.isUserAuth = false;
         this.isAuthStream.next(this.isUserAuth);
         this.userInfoStream.next(null);
+        this.spinnerService.hideSpinner();
+    }
+
+    logoutOnServer(url: string): Observable<any> {
+        let body = {
+            login: this.userInfo.login
+        };
+        return this.http.post(url, body);
+    }
+
+    setUserInfo(info: any): void {
+        this.userInfo = info;
     }
 
     getUserInfo(): void {
         if (this.isUserAuth) {
-            let userInfo: any = JSON.parse(localStorage.getItem(this.storageKey));
-            console.log(userInfo);
-            this.userInfoStream.next(userInfo.login);
+            this.userInfoStream.next(this.userInfo.login);
         } else {
             this.userInfoStream.next(null);
         }

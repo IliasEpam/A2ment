@@ -17,7 +17,6 @@ export class SpinnerComponent {
     this.spinnerStream = spinnerService.spinnerStream$.subscribe(
       isVisible => {
         this.isVisible = isVisible;
-        console.log(isVisible);
         this.ref.markForCheck();
       });
   }

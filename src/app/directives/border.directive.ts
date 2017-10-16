@@ -14,7 +14,6 @@ export class BorderDirective {
     } else if (createdDate > currentDate) {
       this.el.nativeElement.style.borderColor = 'blue';
     } else {
-      console.log('fine');
     }
   }
 

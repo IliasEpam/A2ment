@@ -6,19 +6,11 @@ export class SearchPipe implements PipeTransform {
         if ( param && param.trim()) {
             let newItems = [];
             for (let i = 0; i < items.length; i++) {
-                if (items[i].title.indexOf(param) > -1 && this.sortDate(items[i].date)) {
+                if (items[i].title.indexOf(param) > -1) {
                     newItems.push(items[i]);
                 }
             }
             newItems.sort();
-            return newItems;
-        } else if (items) {
-            let newItems = [];
-            for (let i = 0; i < items.length; i++) {
-                if (this.sortDate(items[i].date)) {
-                    newItems.push(items[i]);
-                }
-            }
             return newItems;
         } else {
             return items;
