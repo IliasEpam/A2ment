@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ICourse } from '../typings/course.component.d';
 import { Observable, Observer } from 'rxjs';
 import { SpinnerService } from './spinner.service';
+import { HttpService } from './http.service';
 import { Http, Response, Request, RequestOptions, Headers, RequestMethod, URLSearchParams} from '@angular/http';
 
 @Injectable()
@@ -9,7 +10,7 @@ export class CoursesService {
   private baseUrl: string = "http://localhost:3000";
   private coursesPage: number = 1; 
 
-  constructor(private spinnerService: SpinnerService, private http: Http){}
+  constructor(private spinnerService: SpinnerService, private http: HttpService){}
 
     getCourses(update?: boolean, searchParam?: string): Observable<ICourse[]> {
         let url = this.baseUrl + '/courses?page=' + this.coursesPage;

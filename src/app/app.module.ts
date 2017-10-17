@@ -18,6 +18,7 @@ import { AddCourseComponent } from './components/addcourse.component';
 import { CoursesService } from './services/courses.service';
 import { AuthService } from './services/auth.service';
 import { SpinnerService } from './services/spinner.service';
+import { HttpService } from './services/http.service';
 
 import { BorderDirective } from './directives/border.directive';
 import { FormatTimePipe } from './pipes/time.pipe';
@@ -35,7 +36,8 @@ import { SearchPipe } from './pipes/search.pipe';
     CoursesService,
     AuthService,
     SearchPipe,
-    SpinnerService
+    SpinnerService,
+    HttpService
   ],
   declarations: [
     AppComponent,
