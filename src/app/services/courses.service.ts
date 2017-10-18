@@ -66,5 +66,10 @@ export class CoursesService {
         this.initiateCoursesUpdate();
     }
 
+    resetCoursesParams() {
+        this.coursesPage = 1;
+        this.searchParam = '';
+    }
+
     
 }

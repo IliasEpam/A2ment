@@ -63,6 +63,7 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.coursesService.resetCoursesParams();
     this.allCoursesSub.unsubscribe();
   }
 }
