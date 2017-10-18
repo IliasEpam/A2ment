@@ -15,14 +15,13 @@ import { SpinnerService } from '../../services/spinner.service';
 export class CoursesComponent implements OnInit {
   public allCoursesSub: Subscription;
   public courses: ICourse[];
-  public allCourses: Observable<ICourse[]>;
-  public allCourses$: ICourse[];
+  public coursesSub: Subscription;
   public sortConfig: string = 'az';
   public sortOptions: any[] = [
     {name: 'Sort by date ↑', value: 'az'},
     {name: 'Sort by date ↓', value: 'za'}
   ];
-  @Input() searchParam: string;
+
   constructor(
     private coursesService: CoursesService, 
     private searchPipe: SearchPipe, 
@@ -30,51 +29,30 @@ export class CoursesComponent implements OnInit {
     private spinnerService: SpinnerService) { }
 
   ngOnInit() {
-    this.updateCourses();
-  };
-
-  updateCourses(update?: boolean) {
-    this.spinnerService.showSpinner();
-    if (update) {
-      if (this.searchParam) {
-        this.allCourses = this.coursesService.getCourses(update, this.searchParam);
-      } else {
-      this.allCourses = this.coursesService.getCourses(update);
-      }
-    } else {
-      this.allCourses = this.coursesService.getCourses();
-    }
-    let sub = this.allCourses.subscribe(
-      (data) => {
-        this.courses = data;
+    this.allCoursesSub = this.coursesService.coursesStream$.subscribe(
+      (courses) => {
+        this.courses = courses;
         this.ref.markForCheck();
         this.spinnerService.hideSpinner();
       }
     );
-  }
-
-  ngOnChanges() {
-    this.updateCourses(true);
-  }
+    this.coursesService.initiateCoursesUpdate();
+  };
 
   onDeleteCourse(id: string): void {
     let confirmation = confirm('Do you really want to delete this course?');
     if (confirmation) {
       let sub = this.coursesService.deleteCourse(id).
       subscribe(() => {
-        this.updateCourses(true);
-      });
+        this.coursesService.initiateCoursesUpdate();
+      },
+      ()=>{},
+      ()=>{sub.unsubscribe()});
     }
   }
 
   getMoreCourses(): void {
-    this.spinnerService.showSpinner();
-    this.coursesService.getMoreCourses()
-    .subscribe((res)=>{
-      this.courses = this.courses.concat(res);
-      this.ref.markForCheck();
-      this.spinnerService.hideSpinner();
-    });
+    this.coursesService.getMoreCourses();
   }
 
   isNoCourses(): boolean {
@@ -83,5 +61,9 @@ export class CoursesComponent implements OnInit {
 
   public onSortingOption(e: any): void{
     this.sortConfig = e.target.value;
+  }
+
+  ngOnDestroy() {
+    this.allCoursesSub.unsubscribe();
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter,ChangeDetectionStrategy } from '@angular/core';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'ment-toolbox',
@@ -8,9 +9,11 @@ import { Component, Output, EventEmitter,ChangeDetectionStrategy } from '@angula
 })
 
 export class ToolboxComponent {
-  @Output() broadcastSearch: EventEmitter<string> = new EventEmitter<string>();
+
+  constructor(private coursesService: CoursesService){}
+
   public search: string = '';
   public startSearch(): void {
-    this.broadcastSearch.emit(this.search);
+    this.coursesService.broadcastSearchParam(this.search);
   }
 }

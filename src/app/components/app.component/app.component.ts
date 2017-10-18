@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public searchParam: string;
   public isAuthVisible: boolean;
   public authForm: Subscription;
   constructor(private authService: AuthService,  private ref: ChangeDetectorRef) {
@@ -19,10 +18,6 @@ export class AppComponent {
         this.isAuthVisible = isAuthVisible;
         this.ref.markForCheck();
       });
-  }
-
-  onSearch(param: string): void {
-    this.searchParam = param;
   }
 
   ngOnDestroy() {

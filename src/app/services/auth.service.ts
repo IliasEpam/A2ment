@@ -39,12 +39,16 @@ export class AuthService {
         this.spinnerService.showSpinner();
         let body = {"login": data.login};
         let url: string = this.baseUrl + '/login';
-        this.loginOnServer(url, body)
-        .subscribe((res) => {
-            setTimeout(() => {
-                this.afterLogin(body);
-            }, 1000);
-        });
+        let sub = this.loginOnServer(url, body)
+        .subscribe(
+            (res) => {
+                setTimeout(() => {
+                    this.afterLogin(body);
+                }, 1000);
+            },
+            ()=>{},
+            ()=>{sub.unsubscribe()}
+        );
     }
 
     afterLogin(body: any): void {
@@ -63,12 +67,16 @@ export class AuthService {
     logout(): void {
         this.spinnerService.showSpinner();
         let url: string = this.baseUrl + '/login';
-        this.logoutOnServer(url)
-        .subscribe((res) => {
-            setTimeout(() => {
-                this.afterLogout();
-            }, 1000);
-        });
+        let sub = this.logoutOnServer(url)
+        .subscribe(
+            (res) => {
+                setTimeout(() => {
+                    this.afterLogout();
+                }, 1000);
+            },
+            ()=>{},
+            ()=>{sub.unsubscribe()}
+    );
         
     }
     

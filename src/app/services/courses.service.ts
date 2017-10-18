@@ -1,54 +1,70 @@
 import { Injectable } from '@angular/core';
 import { ICourse } from '../typings/course.component.d';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, Subject, Subscription } from 'rxjs';
 import { SpinnerService } from './spinner.service';
 import { HttpService } from './http.service';
 import { Http, Response, Request, RequestOptions, Headers, RequestMethod, URLSearchParams} from '@angular/http';
 
 @Injectable()
 export class CoursesService {
-  private baseUrl: string = "http://localhost:3000";
-  private coursesPage: number = 1; 
+    private baseUrl: string = "http://localhost:3000";
 
-  constructor(private spinnerService: SpinnerService, private http: HttpService){}
+    public coursesUpdateStream = new Subject<boolean>();
+    public coursesUpdateStream$ = this.coursesUpdateStream.asObservable();
+    public coursesUpdateSub: Subscription;
+    private searchParam: string;
 
-    getCourses(update?: boolean, searchParam?: string): Observable<ICourse[]> {
-        let url = this.baseUrl + '/courses?page=' + this.coursesPage;
-        if (update) {
-            url+='&update=1';
-        }
-        if (searchParam) {
-            url+='&search=' + searchParam;
-        }
-        return this.http.get(url).map((res) => res.json());
+    public coursesStream = new Subject<ICourse[]>();
+    public coursesStream$ = this.coursesStream.asObservable();
+
+    public pageSub: Subscription;
+    private coursesPage: number = 1;
+
+    constructor(private spinnerService: SpinnerService, private http: HttpService) {
+        this.coursesUpdateSub = this.coursesUpdateStream$.subscribe(
+            () => {
+                let sub = this.getCourses()
+                .subscribe(
+                    (courses) => { 
+                        setTimeout(
+                            ( )=>{ this.coursesStream.next(courses); },
+                            1000
+                        ) },
+                    ()=>{ },
+                    ()=>{ sub.unsubscribe(); }
+                )
+            }
+        )
     }
 
-    getMoreCourses(): Observable<ICourse[]> {
-        ++this.coursesPage;
-        let url = this.baseUrl + '/courses?page=' + this.coursesPage;
+    getCourses() {
+        this.spinnerService.showSpinner();
+        let url = this.baseUrl + '/courses?update=1&page=' + this.coursesPage;
+        if (this.searchParam) {
+            url+='&search=' + this.searchParam;
+        }
         return this.http.get(url).map((res) => res.json());
     }
 
     deleteCourse(id: string): Observable<any> {
+        this.spinnerService.showSpinner();
         let url = this.baseUrl + '/courses?courseId=' + id;
         return this.http.delete(url);
     }
-
-    searchCourses(param: string) {
-        let url = this.baseUrl + '/courses?searchParam=' + param;
-        return this.http.get(url)
-            .map((res)=>{
-                if (res) {
-                    return res.json();
-                }
-            });
+    
+    broadcastSearchParam(param: string) {
+        this.searchParam = param;
+        this.initiateCoursesUpdate();
     }
 
-    /*createCourse(data: ICourse): void {
-        this.courses.push(data);
-    }*/
+    initiateCoursesUpdate() {
+        this.coursesUpdateStream.next();
+    }
 
-    /*updateCourse(data: ICourse): void {
-        this.courses[this.findCouseIndexById(data.id)] = data;
-    }*/
+    getMoreCourses(): void {
+        ++this.coursesPage;
+        this.initiateCoursesUpdate();
+    }
+
+    
 }
