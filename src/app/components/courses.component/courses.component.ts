@@ -15,7 +15,6 @@ import { SpinnerService } from '../../services/spinner.service';
 export class CoursesComponent implements OnInit {
   public allCoursesSub: Subscription;
   public courses: ICourse[];
-  public coursesSub: Subscription;
   public sortConfig: string = 'az';
   public sortOptions: any[] = [
     {name: 'Sort by date ↑', value: 'az'},
