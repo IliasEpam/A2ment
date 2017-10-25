@@ -1,0 +1,30 @@
+@import '../../../scss/variables.scss';
+.add-course {
+  &__label {
+    display: block;
+    margin-bottom: 10px;
+
+    &:after {
+      content:"";
+      clear: both;
+      display: table;
+    }
+  }
+
+  &__input-title {
+      width: 100px;
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+  }
+
+  &__input {
+    margin-left: 10px;
+    max-width: 300px;
+    width: 300px;
+
+    &--duration {
+        width: 100px;
+    }
+  }
+}

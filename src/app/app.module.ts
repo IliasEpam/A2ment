@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './components/app.component';
 import { HeaderComponent } from './common/header.component';
@@ -15,6 +16,8 @@ import { CourseComponent } from './components/course.component';
 import { ToolboxComponent } from './components/toolbox.component';
 import { SpinnerComponent } from './common/spinner.component';
 import { AddCourseComponent } from './components/addcourse.component';
+import { DurationComponent } from './components/duration.component';
+
 import { CoursesService } from './services/courses.service';
 import { AuthService } from './services/auth.service';
 import { SpinnerService } from './services/spinner.service';
@@ -30,7 +33,8 @@ import { SearchPipe } from './pipes/search.pipe';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule
   ],
   providers: [
     CoursesService,
@@ -54,7 +58,8 @@ import { SearchPipe } from './pipes/search.pipe';
     LoginPageComponent,
     ToolboxComponent,
     SpinnerComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    DurationComponent
   ],
   bootstrap: [ AppComponent ]
 })

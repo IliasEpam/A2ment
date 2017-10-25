@@ -1,0 +1,11 @@
+<label class="add-course__label">
+    <span class="add-course__input-title">{{inputName}}</span>  
+    <input class="add-course__input add-course__input--duration" 
+        (change)="onChange($event)" 
+        (keyup)="onChange($event)"
+        [value]="currentValue || ''"
+        name="{{inputName}}"
+        placeholder="duration"
+        type="text"
+    />
+</label>
