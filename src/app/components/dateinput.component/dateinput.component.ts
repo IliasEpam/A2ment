@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, NG_VALIDATORS } from '@angular/forms';
 
-export function durationValidator() {
+export function dateInputValidator() {
     return (control: FormControl) => {
       let err = {
         error: {
@@ -9,7 +9,8 @@ export function durationValidator() {
         }
       };
       let isValid;
-      if (isNaN(+control.value) || !control.value) {
+      let regexp = /\d{2}[.]\d{2}[.]\d{4}$/;
+      if (!control.value || !regexp.test(control.value)) {
         isValid = false;
       } else {
           isValid = true;
@@ -19,21 +20,21 @@ export function durationValidator() {
   }
 
 @Component({
-  selector: 'ment-form-duration',
+  selector: 'ment-form-dateinput',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './duration.component.html',
-  styleUrls: ['./duration.component.scss'],
+  templateUrl: './dateinput.component.html',
+  styleUrls: ['./dateinput.component.scss'],
   providers: [
     { 
         provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => DurationComponent),
+        useExisting: forwardRef(() => DateInputComponent),
         multi: true
     },
-    { provide: NG_VALIDATORS, useExisting: forwardRef(() => DurationComponent), multi: true }
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => DateInputComponent), multi: true }
   ]
 })
 
-export class DurationComponent implements ControlValueAccessor {
+export class DateInputComponent implements ControlValueAccessor {
   @Input('nameOption') inputName: string;
 
   propagateChange = (_: any) => {};
@@ -42,13 +43,13 @@ export class DurationComponent implements ControlValueAccessor {
   currentValue: string;
 
   ngOnChanges(inputs: any) {
-    this.validateFn = durationValidator();
+    this.validateFn = dateInputValidator();
     this.propagateChange(this.currentValue);
   }
 
   onChange(event:any) {
-    this.propagateChange(event.target.value);
     this.writeValue(event.target.value);
+    this.propagateChange(event.target.value);
   }
 
   writeValue(value: string) {

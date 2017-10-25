@@ -15,10 +15,7 @@
         >
         </textarea>
     </label>
-    <label class="add-course__label">
-        <span class="add-course__input-title">Date</span>
-        <input class="add-course__input add-course__input--date" formControlName="date" placeholder="date" type="text"/>
-    </label>
+    <ment-form-dateinput formControlName="date" [nameOption]="date"></ment-form-dateinput>
     <ment-form-duration formControlName="duration" [nameOption]="duration"></ment-form-duration>
     <label class="add-course__label">
         <span class="add-course__input-title">Authors</span>
