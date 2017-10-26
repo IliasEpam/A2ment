@@ -46,6 +46,11 @@ export class CoursesService {
         return this.http.get(url).map((res) => res.json());
     }
 
+    getAuthors() {
+        let url = this.baseUrl + '/authors';
+        return this.http.get(url).map((res) => res.json());
+    }
+
     deleteCourse(id: string): Observable<any> {
         this.spinnerService.showSpinner();
         let url = this.baseUrl + '/courses?courseId=' + id;

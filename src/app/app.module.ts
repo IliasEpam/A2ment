@@ -18,6 +18,7 @@ import { SpinnerComponent } from './common/spinner.component';
 import { AddCourseComponent } from './components/addcourse.component';
 import { DurationComponent } from './components/duration.component';
 import { DateInputComponent } from './components/dateinput.component';
+import { AuthorsInputComponent } from './components/authorsinput.component';
 
 import { CoursesService } from './services/courses.service';
 import { AuthService } from './services/auth.service';
@@ -61,7 +62,8 @@ import { SearchPipe } from './pipes/search.pipe';
     SpinnerComponent,
     AddCourseComponent,
     DurationComponent,
-    DateInputComponent
+    DateInputComponent,
+    AuthorsInputComponent
   ],
   bootstrap: [ AppComponent ]
 })

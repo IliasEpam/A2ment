@@ -2,6 +2,9 @@ import { Component, Output, OnInit, EventEmitter, ChangeDetectionStrategy } from
 import {FormGroup, FormControl, FormBuilder, Validators} from "@angular/forms";
 import { durationValidator } from '../duration.component';
 import { dateInputValidator } from '../dateinput.component';
+import { authorsInputValidator } from '../authorsinput.component';
+import { CoursesService } from '../../services/courses.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ment-addcourse',
@@ -14,7 +17,9 @@ export class AddCourseComponent implements OnInit {
   courseForm: FormGroup;
   duration: string = 'duration';
   date: string = 'date';
-  constructor(private formBuilder: FormBuilder) { }
+  authorsName: string = 'authors';
+  authors: [string];
+  constructor(private formBuilder: FormBuilder, private coursesService: CoursesService) { }
 
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
@@ -22,8 +27,14 @@ export class AddCourseComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(500)]],
       date: ['', dateInputValidator()],
       duration: ['', durationValidator()],
-      authors: ['', [Validators.required]]
-    })
+      authors: ['', authorsInputValidator()]
+    });
+    let sub = this.coursesService.getAuthors().subscribe((authors:[string]) => {
+        this.authors = authors;
+      },
+      ()=>{},
+      ()=>{sub.unsubscribe()}
+    );
   }
 
   onsubmit(form: any) {
