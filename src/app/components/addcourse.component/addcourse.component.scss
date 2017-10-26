@@ -40,6 +40,10 @@
       }
     }
 
+    &__input.ng-touched.ng-invalid {
+        border-color:red;
+    }
+
     &__button-wrapper{
         text-align: center;
     }
@@ -47,4 +51,12 @@
     &__button {
         margin: 10px 0 0 10px;
     }
+
+    &__error {
+        display: block;
+        text-align: center;
+        font-size: 10px;
+        color: red;
+    }
   }
+  

@@ -29,4 +29,8 @@ export class AddCourseComponent implements OnInit {
   onsubmit(form: any) {
     console.log(form.value);
   }
+
+  log(){
+    console.log(this.courseForm.controls.title.errors);
+  }
 }

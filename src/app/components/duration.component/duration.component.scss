@@ -1,5 +1,11 @@
 @import '../../../scss/variables.scss';
-.add-course {
+.duration-input {
+  &:host {
+    display: block;
+    &.ng-invalid.ng-dirty {
+      border: 1px solid red;
+    }
+  }
   &__label {
     display: block;
     margin-bottom: 10px;
@@ -11,7 +17,7 @@
     }
   }
 
-  &__input-title {
+  &__title {
       width: 100px;
       display: inline-block;
       overflow: hidden;
@@ -21,10 +27,6 @@
   &__input {
     margin-left: 10px;
     max-width: 300px;
-    width: 300px;
-
-    &--duration {
-        width: 100px;
-    }
+    width: 100px;
   }
 }

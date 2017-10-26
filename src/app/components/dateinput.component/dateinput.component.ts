@@ -31,7 +31,10 @@ export function dateInputValidator() {
         multi: true
     },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => DateInputComponent), multi: true }
-  ]
+  ],
+  host: {
+    class: 'date-input'
+  }
 })
 
 export class DateInputComponent implements ControlValueAccessor {

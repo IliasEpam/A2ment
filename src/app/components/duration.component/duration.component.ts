@@ -30,7 +30,10 @@ export function durationValidator() {
         multi: true
     },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => DurationComponent), multi: true }
-  ]
+  ],
+  host: {
+    class: 'duration-input'
+  }
 })
 
 export class DurationComponent implements ControlValueAccessor {

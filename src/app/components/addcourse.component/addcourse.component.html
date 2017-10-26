@@ -2,10 +2,15 @@
     <label class="add-course__label">
         <span class="add-course__input-title">Title</span>
         <input class="add-course__input" 
+            (click)="log()"
             type="text"
             formControlName="title"
             placeholder="title"
         />
+        <span class="add-course__error" 
+        *ngIf="courseForm.controls.title.touched && courseForm.controls.title.errors">
+            This field is required
+        </span>
     </label>
     <label class="add-course__label">
         <span class="add-course__input-title">Description</span>
@@ -14,6 +19,10 @@
             placeholder="description"
         >
         </textarea>
+        <span class="add-course__error" 
+        *ngIf="courseForm.controls.description.touched && courseForm.controls.description.errors">
+            This field is required
+        </span>
     </label>
     <ment-form-dateinput formControlName="date" [nameOption]="date"></ment-form-dateinput>
     <ment-form-duration formControlName="duration" [nameOption]="duration"></ment-form-duration>
