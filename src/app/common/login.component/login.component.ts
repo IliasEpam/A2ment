@@ -1,6 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ment-login',
@@ -13,7 +14,7 @@ export class LoginComponent {
   public usernameS: Subscription;
   public username: string;
 
-  constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
+  constructor(private authService: AuthService, private ref: ChangeDetectorRef, private router: Router) {
     this.usernameS = authService.userInfoStream$.subscribe(
       username => {
         this.username = username;
@@ -26,6 +27,7 @@ export class LoginComponent {
 
   logof(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   ngOnDestroy() {

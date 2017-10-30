@@ -3,6 +3,9 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from "@angular/forms";
+import { RouterModule } from '@angular/router';
+
+import { ROUTES } from './app.routes';
 
 import { AppComponent } from './components/app.component';
 import { HeaderComponent } from './common/header.component';
@@ -19,6 +22,7 @@ import { AddCourseComponent } from './components/addcourse.component';
 import { DurationComponent } from './components/duration.component';
 import { DateInputComponent } from './components/dateinput.component';
 import { AuthorsInputComponent } from './components/authorsinput.component';
+import { NoContentComponent } from './components/nocontent.component';
 
 import { CoursesService } from './services/courses.service';
 import { AuthService } from './services/auth.service';
@@ -36,7 +40,8 @@ import { SearchPipe } from './pipes/search.pipe';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [
     CoursesService,
@@ -63,7 +68,8 @@ import { SearchPipe } from './pipes/search.pipe';
     AddCourseComponent,
     DurationComponent,
     DateInputComponent,
-    AuthorsInputComponent
+    AuthorsInputComponent,
+    NoContentComponent
   ],
   bootstrap: [ AppComponent ]
 })

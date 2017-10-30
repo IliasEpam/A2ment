@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ment-loginpage',
@@ -12,7 +13,7 @@ export class LoginPageComponent {
   private login: string;
   private password: string;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
 
   }
 
@@ -21,5 +22,6 @@ export class LoginPageComponent {
       login: this.login
     }
     this.authService.login(authData);
+    this.router.navigate(['/courses']);
   }
  }

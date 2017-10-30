@@ -21,7 +21,7 @@ export function authorsInputValidator() {
 
 @Component({
   selector: 'ment-form-authorsinput',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './authorsinput.component.html',
   styleUrls: ['./authorsinput.component.scss'],
   providers: [
@@ -39,12 +39,12 @@ export function authorsInputValidator() {
 
 export class AuthorsInputComponent implements ControlValueAccessor {
   @Input('nameOption') inputName: string;
-  @Input() authors: [string];
+  @Input('authorsList') authors: [string];
 
   propagateChange = (_: any) => {};
   validateFn:any = () => {};
   
-  currentValue: any = [];
+  currentValue: Array<string> = [];
 
   ngOnChanges(inputs: any) {
     this.validateFn = authorsInputValidator();
@@ -57,13 +57,26 @@ export class AuthorsInputComponent implements ControlValueAccessor {
   }
 
   writeValue(event: any) {
-    if (event.target) {
+    if(event.length){
+      this.currentValue = event;
+    }
+    if (event && event.target) {
       if (event.target.checked) {
         this.currentValue.push(event.target.value);
       } else {
         this.deleteValue(event.target.value);
       }
     }
+  }
+
+  isSelected(author: string): boolean {
+    let checked: boolean;
+    this.currentValue.forEach((selected) => {
+      if(selected === author) {
+        checked = true;
+      }
+    });
+    return checked;
   }
 
   registerOnChange(fn: any) {
@@ -82,7 +95,7 @@ export class AuthorsInputComponent implements ControlValueAccessor {
 
   findIndexByValue(value: string): number {
     let index: number;
-    for (let i = 0; i < this.currentValue; i++) {
+    for (let i = 0; i < this.currentValue.length; i++) {
       if(this.currentValue[i] === value) {
         index = i;
       }

@@ -20,7 +20,7 @@ export function durationValidator() {
 
 @Component({
   selector: 'ment-form-duration',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './duration.component.html',
   styleUrls: ['./duration.component.scss'],
   providers: [
@@ -41,7 +41,6 @@ export class DurationComponent implements ControlValueAccessor {
 
   propagateChange = (_: any) => {};
   validateFn:any = () => {};
-  
   currentValue: string;
 
   ngOnChanges(inputs: any) {

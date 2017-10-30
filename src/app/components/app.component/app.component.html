@@ -1,7 +1,8 @@
 <ment-header></ment-header>
-<ment-loginpage *ngIf="isAuthVisible"></ment-loginpage>
 <ment-toolbox (broadcastSearch)='onSearch($event)' *ngIf="!isAuthVisible"></ment-toolbox>
-<ment-courses *ngIf="!isAuthVisible"></ment-courses>
-<ment-addcourse></ment-addcourse>
+<!-- <ment-courses *ngIf="!isAuthVisible"></ment-courses>
+<ment-addcourse></ment-addcourse> 
+<ment-loginpage *ngIf="isAuthVisible"></ment-loginpage>-->
+<router-outlet></router-outlet>
 <ment-spinner></ment-spinner>
 <ment-footer></ment-footer>

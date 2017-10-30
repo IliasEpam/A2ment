@@ -5,6 +5,7 @@
             <input class="authors-input__input" 
                 type="checkbox"
                 [value]="author"
+                [checked]="isSelected(author)"
                 (change)="onChange($event)"
             /> {{author}}
         </p>

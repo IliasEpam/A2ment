@@ -21,7 +21,7 @@ export function dateInputValidator() {
 
 @Component({
   selector: 'ment-form-dateinput',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './dateinput.component.html',
   styleUrls: ['./dateinput.component.scss'],
   providers: [

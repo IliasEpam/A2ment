@@ -45,6 +45,16 @@ export class CoursesService {
         }
         return this.http.get(url).map((res) => res.json());
     }
+    updateCourse(data: any) {
+        let url = this.baseUrl + '/updatecourse';
+        return this.http.post(url, data);
+    }
+
+    getCourse(id: string): Observable<any> {
+        this.spinnerService.showSpinner();
+        let url = this.baseUrl + '/course?id=' + id;
+        return this.http.get(url).map((res) => res.json());
+    }
 
     getAuthors() {
         let url = this.baseUrl + '/authors';
