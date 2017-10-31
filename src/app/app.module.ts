@@ -27,6 +27,7 @@ import { NoContentComponent } from './components/nocontent.component';
 import { CoursesService } from './services/courses.service';
 import { AuthService } from './services/auth.service';
 import { SpinnerService } from './services/spinner.service';
+import { LoginGuard } from './services/login.guard';
 import { HttpService } from './services/http.service';
 
 import { BorderDirective } from './directives/border.directive';
@@ -48,7 +49,8 @@ import { SearchPipe } from './pipes/search.pipe';
     AuthService,
     SearchPipe,
     SpinnerService,
-    HttpService
+    HttpService,
+    LoginGuard
   ],
   declarations: [
     AppComponent,

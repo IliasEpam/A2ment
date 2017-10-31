@@ -22,6 +22,5 @@ export class LoginPageComponent {
       login: this.login
     }
     this.authService.login(authData);
-    this.router.navigate(['/courses']);
   }
  }

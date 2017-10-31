@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { LoginGuard } from './services/login.guard';
 
 import { CoursesComponent } from './components/courses.component';
 import { CourseComponent } from './components/course.component';
@@ -14,11 +15,13 @@ export const ROUTES: Routes = [
   },
   {
     path: 'courses',
-    component: CoursesComponent
+    component: CoursesComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'addcourse',
-    component: AddCourseComponent
+    component: AddCourseComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'login',
@@ -26,7 +29,8 @@ export const ROUTES: Routes = [
   },
   {
     path: 'courses/:id',
-    component: AddCourseComponent
+    component: AddCourseComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: '**',

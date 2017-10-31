@@ -30,6 +30,7 @@ export class HeaderComponent {
         this.isLoggedIn = isLoggedIn;
         this.ref.markForCheck();
       });
+      this.authService.isUserAuthInitial();
   }
 
   toggleAuth(): void{
