@@ -52,6 +52,7 @@ export class AddCourseComponent implements OnInit {
             authors: courseData.authors
           });
           this.dataBuffer = courseData;
+          this.coursesService.setBsItem(courseData.title);
         });
       }
     });
@@ -65,7 +66,6 @@ export class AddCourseComponent implements OnInit {
   }
 
   onsubmit(form: any) {
-    console.log(form.value);
     this.spinnerService.showSpinner();
     const newCourseData = {
       id: this.dataBuffer.id,

@@ -1,5 +1,6 @@
-<div class="breadcrumbs">
-  <div *ngFor="let item of items" class="breadcrumbs__item">
-    {{item}}
+<div class="breadcrumbs" *ngIf="items.length > 1">
+  <div *ngFor="let item of items; let i = index" class="breadcrumbs__item">
+    <a *ngIf="!i" routerLink="/courses">{{ item }}</a>
+    <span *ngIf="i">{{ item }}</span>
   </div>
 </div>

@@ -17,6 +17,9 @@ export class CoursesService {
     public coursesStream = new Subject<ICourse[]>();
     public coursesStream$ = this.coursesStream.asObservable();
 
+    public bsStream = new Subject<string>();
+    public bsStream$ = this.bsStream.asObservable();
+
     public pageSub: Subscription;
     private coursesPage: number = 1;
 
@@ -35,6 +38,10 @@ export class CoursesService {
                 )
             }
         )
+    }
+
+    setBsItem(item: string): void{
+        this.bsStream.next(item);
     }
 
     getCourses() {

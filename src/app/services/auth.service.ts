@@ -76,7 +76,6 @@ export class AuthService {
     logout(): void {
         this.spinnerService.showSpinner();
         let url: string = this.baseUrl + '/login';
-        console.log(url);
         let sub = this.logoutOnServer(url)
         .subscribe(
             (res) => {
@@ -113,7 +112,6 @@ export class AuthService {
     getUserInfo(): void {
         if (this.isUserAuth) {
             let userInfo = JSON.parse(localStorage.getItem(this.storageKey + '-login'));
-            console.log(userInfo);
             this.userInfoStream.next(userInfo.login);
         } else {
             this.userInfoStream.next(null);

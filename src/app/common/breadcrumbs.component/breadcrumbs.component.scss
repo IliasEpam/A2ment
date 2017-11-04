@@ -18,6 +18,14 @@
 
     &:last-child {
       border-right: 1px solid black;
+      cursor: default;
+      &:hover {
+        background: transparent;
+      }
+    }
+    & a {
+      text-decoration: none;
+      color: black;
     }
   }
 }

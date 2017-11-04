@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd, Params, PRIMARY_OUTLET } from '@angular/router';
+import { CoursesService } from '../../services/courses.service';
+import { SearchPipe } from '../../pipes/search.pipe';
+import { ICourse } from '../../typings/course.component.d';
+import { Observable, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'ment-breadcrumbs',
@@ -8,5 +14,23 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 
 export class BreadcrumbsComponent { 
-  public items: string[] = ['courses', 'course'];
+  public items: string[] = ['courses'];
+  public sub: Subscription;
+
+  constructor(private coursesService: CoursesService, 
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private ref: ChangeDetectorRef,){ }
+
+  ngOnInit(){
+    let sub = this.coursesService.bsStream$.subscribe((bsItem) =>{
+      console.log(bsItem);
+      this.items[1] = bsItem;
+      this.ref.markForCheck();
+    })
+  }
+
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+  }
 }
