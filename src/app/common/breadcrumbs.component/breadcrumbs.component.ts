@@ -25,7 +25,12 @@ export class BreadcrumbsComponent {
   ngOnInit(){
     let sub = this.coursesService.bsStream$.subscribe((bsItem) =>{
       console.log(bsItem);
-      this.items[1] = bsItem;
+      if (bsItem) {
+        this.items[1] = bsItem;
+      } else if (this.items[1] && !bsItem) {
+        this.items.splice(1, 1);
+      }
+      
       this.ref.markForCheck();
     })
   }

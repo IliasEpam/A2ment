@@ -85,4 +85,8 @@ export class AddCourseComponent implements OnInit {
   goToMain() {
     this.navigation.navigate(['/']);
   }
+
+  ngOnDestroy() {
+    this.coursesService.setBsItem(null);
+  }
 }
