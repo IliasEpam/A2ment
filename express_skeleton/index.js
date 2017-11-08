@@ -40,6 +40,18 @@ app.get('/courses', function (req, res) {
     res.send(result);
 });
 
+app.get('/course', function (req, res) {
+    var courseId = req.query.id;
+    var result = {};
+    for (var i = 0; i <= courses.length - 1; i++) {
+        if (courses[i].id == courseId) {
+            result = courses[i];
+        }
+    }
+    res.header('Content-Type', 'application/json;charset=UTF-8');
+    res.send(result);
+});
+
 app.delete('/courses', function (req, res) {
     var courseId = req.query.courseId;
     var courseIndex;
@@ -57,6 +69,16 @@ app.delete('/courses', function (req, res) {
 app.post('/login', function (req, res) {
     auth.login = req.body.login;
     auth.isAuth = true;
+    res.status(200);
+    res.send();
+});
+
+app.post('/updatecourse', function(req, res) {
+    for (var i = 0; i < courses.length; i++){
+        if (courses[i].id == req.body.id){
+            courses[i] = Object.assign({}, req.body);
+        }
+    }
     res.status(200);
     res.send();
 });
