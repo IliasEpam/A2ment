@@ -35,7 +35,9 @@ export class BreadcrumbsComponent {
     })
   }
 
-  ngOnDestroy(){
-    this.sub.unsubscribe();
+  ngOnDestroy() {
+    if(this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

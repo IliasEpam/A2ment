@@ -74,10 +74,18 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/updatecourse', function(req, res) {
+    var isCourse = false;
     for (var i = 0; i < courses.length; i++){
         if (courses[i].id == req.body.id){
             courses[i] = Object.assign({}, req.body);
+            isCourse = true;
         }
+    }
+    if (!isCourse) {
+        var newCourse = req.body;
+        newCourse.id = String((Math.random()*10000).toFixed(0));
+        courses.push(newCourse);
+        console.log(newCourse);
     }
     res.status(200);
     res.send();

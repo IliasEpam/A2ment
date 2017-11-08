@@ -67,20 +67,30 @@ export class AddCourseComponent implements OnInit {
 
   onsubmit(form: any) {
     this.spinnerService.showSpinner();
+    let id = '';
+    let isFavorite = false
+    if (this.dataBuffer && this.dataBuffer.id){
+      id = this.dataBuffer.id;
+      isFavorite = this.dataBuffer.isFavorite;
+    }
+    this.updateCourse(id, isFavorite);
+  };
+
+  updateCourse(id: string, isFavorite: boolean): void{
     const newCourseData = {
-      id: this.dataBuffer.id,
+      id: id,
       title: this.courseForm.controls.title.value,
       duration: this.courseForm.controls.duration.value,
       date: this.courseForm.controls.date.value,
       description: this.courseForm.controls.description.value,
-      isFavorite: this.dataBuffer.isFavorite,
+      isFavorite: isFavorite,
       authors: ["Author 1", "Author 2"]
     };
     this.coursesService.updateCourse(newCourseData).subscribe(()=>{}, ()=>{}, ()=>{
       this.goToMain();
       this.spinnerService.hideSpinner();
     });
-  };
+  }
 
   goToMain() {
     this.navigation.navigate(['/']);

@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class HeaderComponent {
   public authForm: Subscription;
-  public isAuthVisible: boolean;
   public isLoggedInS: Subscription;
   public isLoggedIn: boolean;
 
@@ -19,11 +18,6 @@ export class HeaderComponent {
   }
 
   ngOnInit() {
-    this.authForm = this.authService.authFormStream$.subscribe(
-      isAuthVisible => {
-        this.isAuthVisible = isAuthVisible;
-        this.ref.markForCheck();
-      });
     
     this.isLoggedInS = this.authService.isAuthStream$.subscribe(
       isLoggedIn => {
@@ -38,7 +32,5 @@ export class HeaderComponent {
   }
 
   ngOnDestroy() {
-    this.authForm.unsubscribe();
-    this.isLoggedInS.unsubscribe();
   }
 }
